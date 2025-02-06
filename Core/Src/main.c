@@ -22,7 +22,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "tmpsensor.h"
-#include "stdio.h"
+#include <stdio.h>
+//#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -70,7 +71,16 @@ static void MX_TIM3_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+int _write(int file, char *ptr, int len)
+{
+  /* Implement your write code here, this is used by puts and printf for example */
+  int i=0;
+  for(i=0 ; i<len ; i++)
+    ITM_SendChar((*ptr++));
+  return len;
+}
 
+uint8_t count = 0;
 /* USER CODE END 0 */
 
 /**
@@ -121,9 +131,11 @@ int main(void)
 	  }
 
     /* USER CODE END WHILE */
-//	  printf("Hello\n");
-//	  HAL_Delay(1000);
+
     /* USER CODE BEGIN 3 */
+	  printf("Hello count = %d \n", count);
+	  count++;
+	  HAL_Delay(250);
   }
   /* USER CODE END 3 */
 }
@@ -321,16 +333,21 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
 //	return(ch);
 //}
 
-int _write(int file, char *ptr, int len)
-{
-	int DataIdx;
+//int __io_putchar(int ch) {
+//    ITM_SendChar(ch);
+//    return ch;
+//}
 
-	for (DataIdx = 0; DataIdx < len; DataIdx++)
-	{
-		ITM_SendChar(*ptr++);
-	}
-	return len;
-}
+//int _write(int file, char *ptr, int len)
+//{
+//	int DataIdx;
+//
+//	for (DataIdx = 0; DataIdx < len; DataIdx++)
+//	{
+//		ITM_SendChar(*ptr++);
+//	}
+//	return len;
+//}
 /* USER CODE END 4 */
 
 /**
