@@ -56,7 +56,7 @@ DMA_HandleTypeDef hdma_adc1;
 TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN PV */
-
+extern void initialise_monitor_handles(void);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -71,14 +71,14 @@ static void MX_TIM3_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int _write(int file, char *ptr, int len)
-{
-  /* Implement your write code here, this is used by puts and printf for example */
-  int i=0;
-  for(i=0 ; i<len ; i++)
-    ITM_SendChar((*ptr++));
-  return len;
-}
+//int _write(int file, char *ptr, int len)
+//{
+//  /* Implement your write code here, this is used by puts and printf for example */
+//  int i=0;
+//  for(i=0 ; i<len ; i++)
+//    ITM_SendChar((*ptr++));
+//  return len;
+//}
 
 uint8_t count = 0;
 /* USER CODE END 0 */
@@ -90,7 +90,7 @@ uint8_t count = 0;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	initialise_monitor_handles();
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -136,6 +136,7 @@ int main(void)
 	  printf("Hello count = %d \n", count);
 	  count++;
 	  HAL_Delay(250);
+	  //printf("temp = %f\n", Adc.IntSensTmp);
   }
   /* USER CODE END 3 */
 }
